@@ -15,11 +15,20 @@ namespace Poseshchaemost
     
     public partial class PoseshchaemostEntities1 : DbContext
     {
+        private static PoseshchaemostEntities1 DBE = null;
+
         public PoseshchaemostEntities1()
             : base("name=PoseshchaemostEntities1")
         {
         }
-    
+
+        public static PoseshchaemostEntities1 GetPoseshchaemostEntities1es()
+        {
+            if (DBE == null)
+                DBE = new PoseshchaemostEntities1();
+            return DBE;
+        }
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             throw new UnintentionalCodeFirstException();

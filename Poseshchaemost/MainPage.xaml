@@ -7,8 +7,88 @@
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="Main">
+    <TabControl Background="Black">
+        <TabControl.Resources>
+            <Style TargetType="TabItem">
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="TabItem">
+                            <Border Name="Border"
+                                Background="#FF393C3E"
+                                BorderBrush="#FF393C3E"
+                                Padding="10,5"
+                                BorderThickness="1">
+                                <ContentPresenter ContentSource="Header" HorizontalAlignment="Center"/>
+                            </Border>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsSelected" Value="True">
+                                    <Setter TargetName="Border" Property="Background" Value="#FF393C3E"/>
+                                    <Setter Property="Foreground" Value="#c2c2c2"/>
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+        </TabControl.Resources>
+        <TabItem Header="Сотрудники" >
+            <Grid Background="#FF393C3E">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="55*"/>
+                    <ColumnDefinition Width="739*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
 
-    <Grid>
-        <TextBox Name="ReceivedDataTextBox" Width="300" Height="200" VerticalScrollBarVisibility="Auto"/>
-    </Grid>
+                <DataGrid x:Name="dataGrid"
+                      Grid.Column="1"
+                      Height="Auto"
+                      Width="Auto"
+                      HorizontalAlignment="Left" 
+                      Margin="10,10,0,0" 
+                      VerticalAlignment="Top" 
+                      Background="#FF262829" 
+                      Foreground="Black" 
+                      BorderBrush="Black" 
+                      OpacityMask="Black" 
+                      AutoGenerateColumns="False"
+                      HeadersVisibility="Column" 
+                      ScrollViewer.VerticalScrollBarVisibility="Visible"
+                      CanUserAddRows="False" 
+                      Grid.ColumnSpan="2"
+                      Grid.Row="1"
+                      IsReadOnly='True'>
+                    <DataGrid.Resources>
+                        <Style TargetType="{x:Type DataGridColumnHeader}">
+                            <Setter Property="Background" Value="#FF393C3E"/>
+                            <Setter Property="Foreground" Value="#c2c2c2"/>
+                            <Setter Property="BorderBrush" Value="#FF393C3E"/>
+                            <Setter Property="FontSize" Value="16"/>
+                            <Setter Property="BorderThickness" Value="0,0,1,1"/>
+                        </Style>
+                        <Style TargetType="{x:Type DataGridRow}">
+                            <Setter Property="Background" Value="#FF393C3E"/>
+                            <Setter Property="Foreground" Value="#FF393C3E"/>
+                            <Setter Property="BorderBrush" Value="#FF393C3E"/>
+                            <Setter Property="BorderThickness" Value="0,0,1,1"/>
+                        </Style>
+                        <Style TargetType="{x:Type DataGridCell}">
+                            <Setter Property="BorderBrush" Value="#FF393C3E"/>
+                            <Setter Property="BorderThickness" Value="0,0,1,1"/>
+                        </Style>
+                    </DataGrid.Resources>
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Фамилия" Binding="{Binding familiya}" Width="150" Foreground="White" FontSize="16"/>
+                        <DataGridTextColumn Header="Имя" Binding="{Binding imya}" Width="150" Foreground="White" FontSize="16"/>
+                        <DataGridTextColumn Header="Отчество" Binding="{Binding otchestvo}" Width="150" Foreground="White" FontSize="16"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </Grid>
+
+
+        </TabItem>
+    </TabControl>
 </Page>

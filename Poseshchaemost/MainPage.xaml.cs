@@ -28,6 +28,7 @@ namespace Poseshchaemost
         {
             InitializeComponent();
             InitializeSerialPort();
+            dataGrid.ItemsSource = PoseshchaemostEntities1.GetPoseshchaemostEntities1es().Sotrudnik.ToList();
         }
 
         private void InitializeSerialPort()
@@ -58,7 +59,7 @@ namespace Poseshchaemost
         {
             string data = serialPort.ReadExisting();
 
-            Dispatcher.Invoke(() => ReceivedDataTextBox.Text = data);
+            //Dispatcher.Invoke(() => ReceivedDataTextBox.Text = data);
         }
 
         private void Window_Closed(object sender, EventArgs e)

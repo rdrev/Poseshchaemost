@@ -6,7 +6,6 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.IO.Ports;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
@@ -24,7 +23,6 @@ namespace Poseshchaemost
     /// </summary>
     public partial class Vkhod : Page
     {
-        private SerialPort serialPort;
 
         public Vkhod()
         {

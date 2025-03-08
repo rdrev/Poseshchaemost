@@ -13,6 +13,10 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Security.Policy;
+using System.Collections;
+using System.IO;
+using System.Globalization;
 
 namespace Poseshchaemost
 {
@@ -22,9 +26,9 @@ namespace Poseshchaemost
     public partial class MainPage : Page
     {
         private SerialPort serialPort;
-        private String data1 = "";
+        private String cart_ = "";
         private bool naprovlenie = false;
-
+        private SotrudnikPage sotrudnikPage = new SotrudnikPage(new Sotrudnik());
         public MainPage()
         {
             InitializeComponent();
@@ -34,6 +38,7 @@ namespace Poseshchaemost
         public void Update()
         {
             Update1();
+            Update2();
         }
 
         private void Update1()
@@ -56,6 +61,15 @@ namespace Poseshchaemost
             kuratorBox.ItemsSource = kuratorList;
 
             dataGrid.ItemsSource = sotrudnikList;
+        }
+
+        private void Update2()
+        {
+            var prokhodList = DB.GetBD().Prokhods.OrderByDescending(x => x.data).ToList();
+            prokhodList = prokhodList.Where(x => x.Sotrudnik1.familiya.ToLower().Contains(PoiskBT2.Text.ToLower()) ||
+                                                 x.Sotrudnik1.imya.ToLower().Contains(PoiskBT2.Text.ToLower()) ||
+                                                 x.Sotrudnik1.otchestvo.ToLower().Contains(PoiskBT2.Text.ToLower())).ToList();
+            dataGrid2.ItemsSource = prokhodList;
         }
 
         private void kuratorBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -97,31 +111,55 @@ namespace Poseshchaemost
                 {
                     case '+':
                         naprovlenie = true;
-                        data1 = "";
+                        cart_ = "";
                         break;
                     case '-':
                         naprovlenie = false;
-                        data1 = "";
+                        cart_ = "";
                         break;
                     case ';':
-                        string a;
-                        if (naprovlenie)
-                        {
-                            a = "Вошел  ";
-                        }
-                        else
-                        {
-                            a = "Вышел  ";
-                        }
-                        a += data1;
-                        //Dispatcher.Invoke(() => TB.Text = a);
+                        string cart = cart_;
+                        bool napr = naprovlenie;
+                        Dispatcher.Invoke(() => card_db(cart, napr));
                         break;
                     default:
-                        data1 += item;
+                        cart_ += item;
                         break;
                 }
             }
             
+        }
+
+        private void card_db(string catr, bool napr)
+        {
+            sotrudnikPage.card_up(catr);
+            var pro = DB.GetBD().Sotrudniks.Where(x => x.cart == catr).FirstOrDefault();
+            if (pro != null)
+            {
+                PosItem.DataContext = pro;
+                //TB_naprovlenie.Text = napr ? "Вход" : "Выход";
+                if (napr)
+                {
+                    TB_naprovlenie.Text = "Пришёл";
+                    TB_naprovlenie.Foreground = Brushes.LawnGreen;
+                }
+                else
+                {
+                    TB_naprovlenie.Text = "Ушёл";
+                    TB_naprovlenie.Foreground = Brushes.Red;
+                }
+
+                var prokhod = new Prokhod
+                {
+                    data = DateTime.Now,
+                    naprovelenie = napr,
+                    sotrudnik = pro.id_sotrudnik
+                };
+                DB.GetBD().Prokhods.Add(prokhod);
+                DB.GetBD().SaveChanges();
+
+                Update2();
+            }
         }
 
         private void Window_Closed(object sender, EventArgs e)
@@ -134,12 +172,14 @@ namespace Poseshchaemost
 
         private void AddBtn_Click(object sender, RoutedEventArgs e)
         {
-            Meneger.Frame.Navigate(new SotrudnikPage(new Sotrudnik()));
+            sotrudnikPage = new SotrudnikPage(new Sotrudnik());
+            Meneger.Frame.Navigate(sotrudnikPage);
         }
 
         private void UpBtn_Click(object sender, RoutedEventArgs e)
         {
-            Meneger.Frame.Navigate(new SotrudnikPage((sender as Button).DataContext as Sotrudnik));
+            sotrudnikPage = new SotrudnikPage((sender as Button).DataContext as Sotrudnik);
+            Meneger.Frame.Navigate(sotrudnikPage);
         }
 
         private void DelBtn_Click(object sender, RoutedEventArgs e)
@@ -161,6 +201,43 @@ namespace Poseshchaemost
         private void PoiskBT_TextChanged(object sender, TextChangedEventArgs e)
         {
             Update1();
+        }
+
+        private void PoiskBT2_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            Update2();
+        }
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            if (value is bool boolValue)
+            {
+                return boolValue ? "Пришёл" : "Ушёл";
+            }
+            return "Неизвестно";
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            if (value is string strValue)
+            {
+                return strValue == "Пришёл";
+            }
+            return false;
+        }
+
+        private void MenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("1");
+        }
+
+        private void MenuItem_Click_1(object sender, RoutedEventArgs e)
+        {
+            Meneger.Frame.GoBack();
+        }
+
+        private void MenuItem_Click_2(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("3");
         }
     }
 }

@@ -43,6 +43,9 @@ namespace Poseshchaemost
             }
         }
 
+        public void card_up(string card)
+            { TB_cart.Text = card; }
+
         private void ObzBtn_Click(object sender, RoutedEventArgs e)
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();

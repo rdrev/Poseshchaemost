@@ -104,28 +104,125 @@
 
 
 
-
-    <TabControl Background="Black">
-        <TabItem Header="Посещаемость" >
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Menu Background="#FF393C3E" Foreground="White">
+            <MenuItem Header="Настройки">
+                <MenuItem Header="Cменить пароль" Click="MenuItem_Click" Background="#FF393C3E"/>
+                <MenuItem Header="Вернутся к выбору порта" Click="MenuItem_Click_1" Background="#FF393C3E"/>
+            </MenuItem>
+            <MenuItem Header="О программе" Click="MenuItem_Click_2"></MenuItem>
+        </Menu>
+        <TabControl Background="Black" Grid.Row="1">
+        <TabItem Header="Посещаемость" x:Name="PosItem" >
             <Grid Background="#FF393C3E">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="300"/>
                     <ColumnDefinition Width="200"/>
-                    <ColumnDefinition Width="200"/>
+                    <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="20"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="auto"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
+                <Image Source="{Binding foto}" Grid.Row="1" Grid.RowSpan="5"/>
+
+                <TextBlock Text="Фамилия" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Right" Margin="0,10,20,10"/>
+                <TextBlock Text="Имя" Grid.Row="2" Grid.Column="1" HorizontalAlignment="Right" Margin="0,10,20,10"/>
+                <TextBlock Text="Отчество" Grid.Row="3" Grid.Column="1" HorizontalAlignment="Right" Margin="0,10,20,10"/>
+                <TextBlock Text="Куратор" Grid.Row="4" Grid.Column="1" HorizontalAlignment="Right" Margin="0,10,20,10"/>
+                <TextBlock Text="Поиск" Grid.Row="6" Grid.Column="1" HorizontalAlignment="Right" Margin="0,10,20,10"/>
+                
+                <TextBlock Text="{Binding familiya}" Grid.Row="1" Grid.Column="3"/>
+                <TextBlock Text="{Binding imya}" Grid.Row="2" Grid.Column="3"/>
+                <TextBlock Text="{Binding otchestvo}" Grid.Row="3" Grid.Column="3"/>
+                <TextBlock Text="{Binding Sotrudnik2.familiya}" Grid.Row="4" Grid.Column="3"/>
+                <TextBlock x:Name="TB_naprovlenie" Grid.Row="5" Grid.Column="3" />
+                <TextBox x:Name="PoiskBT2" 
+                     Grid.Column="3"
+                     Grid.Row="6"
+                     Margin="10,10,10,10" 
+                     Background="#FF262829" 
+                     TextChanged="PoiskBT2_TextChanged"/>
+                
+                <DataGrid x:Name="dataGrid2"                 
+                          Height="Auto"
+                          HorizontalAlignment="Left" 
+                          Margin="30,10,0,0" 
+                          VerticalAlignment="Top" 
+                          AutoGenerateColumns="False"
+                          HeadersVisibility="Column" 
+                          ScrollViewer.VerticalScrollBarVisibility="Visible"
+                          CanUserAddRows="False" 
+                          Grid.ColumnSpan="3"
+                          Grid.Row="7"
+                          IsReadOnly='True' 
+                          HorizontalContentAlignment="Center" 
+                          VerticalContentAlignment="Center">
+                    <DataGrid.Columns>
+                        <DataGridTemplateColumn Header="Дата" Width="150">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBox Text="{Binding data}"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                        <DataGridTemplateColumn Header="Фамилия" Width="150">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBox Text="{Binding Sotrudnik1.familiya}"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                        <DataGridTemplateColumn Header="Имя" Width="150">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBox Text="{Binding Sotrudnik1.imya}"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                        <DataGridTemplateColumn Header="Отчество" Width="150">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBox Text="{Binding Sotrudnik1.otchestvo}"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                        <DataGridTemplateColumn Header="Статус">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock>
+                                        <TextBlock.Style>
+                                            <Style TargetType="TextBlock">
+                                                <Setter Property="Text" Value="Неизвестно"/>
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding naprovelenie}" Value="True">
+                                                        <Setter Property="Text" Value="Пришёл"/>
+                                                        <Setter Property="Foreground" Value="LawnGreen"/>
+                                                    </DataTrigger>
+                                                    <DataTrigger Binding="{Binding naprovelenie}" Value="False">
+                                                        <Setter Property="Text" Value="Ушёл"/>
+                                                        <Setter Property="Foreground" Value="Red"/>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </TextBlock.Style>
+                                    </TextBlock>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                    </DataGrid.Columns>
+
+                </DataGrid>
             </Grid>
         </TabItem>
         <TabItem Header="Сотрудники" >
@@ -260,5 +357,6 @@
 
 
         </TabItem>
-    </TabControl>
+        </TabControl>
+    </Grid>
 </Page>

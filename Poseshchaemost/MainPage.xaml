@@ -22,8 +22,8 @@
                                                 <ColumnDefinition Width="5*" />
                                                 <ColumnDefinition Width="*" />
                                             </Grid.ColumnDefinitions>
-                                            <Border x:Name="Border"  Grid.ColumnSpan="2"  Background="#FF393C3E" BorderBrush="White" BorderThickness="1" />
-                                            <Border Grid.Column="0" CornerRadius="5,0,0,5"  Margin="1"  Background="#FF393C3E"  BorderBrush="White" BorderThickness="0,0,1,0" />
+                                            <Border x:Name="Border"  Grid.ColumnSpan="2"  Background="#FF262829" BorderBrush="White" BorderThickness="0.5" />
+                                            <Border Grid.Column="0" CornerRadius="5,0,0,5"  Margin="1"  Background="#FF262829"  BorderBrush="White" BorderThickness="0,0,0.5,0" />
                                             <Path x:Name="Arrow" Grid.Column="1"  Fill="White" HorizontalAlignment="Center" VerticalAlignment="Center" Data="M 0 0 L 4 4 L 8 0 Z"/>
                                         </Grid>
                                     </ControlTemplate>
@@ -164,7 +164,9 @@
                      Grid.Row="6"
                      Margin="10,10,10,10" 
                      Background="#FF262829" 
-                     TextChanged="PoiskBT2_TextChanged"/>
+                     TextChanged="PoiskBT2_TextChanged"
+                     BorderBrush="White"
+                     BorderThickness="0.5"/>
                     </Grid>
                     <DataGrid x:Name="dataGrid2"    
                           HorizontalAlignment="Left" 
@@ -243,7 +245,7 @@
                         <ColumnDefinition Width="150"/>
                         <ColumnDefinition Width="220"/>
                         <ColumnDefinition Width="50"/>
-                        <ColumnDefinition Width="250"/>
+                        <ColumnDefinition Width="200"/>
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
@@ -274,7 +276,9 @@
                          Grid.Column="4" 
                          Margin="10,10,10,10" 
                          Background="#FF262829" 
-                         TextChanged="PoiskBT_TextChanged"/>
+                         TextChanged="PoiskBT_TextChanged"
+                             BorderBrush="White"
+                             BorderThickness="0.5"/>
                     <Button x:Name="AddBtn"
                       Content="Добавить"
                       Grid.Column="5"
@@ -285,7 +289,7 @@
                       Width="100" 
                       Height="30" 
                       Click="AddBtn_Click" 
-                      Background="#FF393C3E" 
+                      Background="#FF262829" 
                       Foreground="White"
                       BorderBrush="Gray"/>
 

@@ -70,6 +70,7 @@
             <Setter Property="HorizontalContentAlignment" Value="Center"/>
         </Style>
         <Style TargetType="TabItem">
+            <Setter Property="Foreground" Value="#c2c2c2"/>
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="TabItem">
@@ -83,7 +84,7 @@
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsSelected" Value="True">
                                 <Setter TargetName="Border" Property="Background" Value="#FF393C3E"/>
-                                <Setter Property="Foreground" Value="#c2c2c2"/>
+                                <Setter Property="Foreground" Value="White"/>
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
@@ -99,25 +100,48 @@
             <Setter Property="HorizontalContentAlignment" Value="Left"/>
         </Style>
     </Page.Resources>
-    
-    
-    
-    
-    
+
+
+
+
+
     <TabControl Background="Black">
+        <TabItem Header="Посещаемость" >
+            <Grid Background="#FF393C3E">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="300"/>
+                    <ColumnDefinition Width="200"/>
+                    <ColumnDefinition Width="200"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+            </Grid>
+        </TabItem>
         <TabItem Header="Сотрудники" >
             <Grid Background="#FF393C3E">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="150"/>
-                    <ColumnDefinition Width="200"/>
-                    <ColumnDefinition Width="150"/>
+                    <ColumnDefinition Width="220"/>
+                    <ColumnDefinition Width="50"/>
+                    <ColumnDefinition Width="250"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
-                
+
                 <Label Content="Выберите куратора" HorizontalAlignment="Right" VerticalAlignment="Center" FontSize="14" Foreground="White"/>
                 <ComboBox x:Name="kuratorBox"
                       Grid.Column="1"
@@ -131,15 +155,20 @@
                       BorderBrush="Black" 
                       OpacityMask="Black" 
                       FontSize="16"
-                      Grid.ColumnSpan="2"
                       Grid.Row="0"
                       Style="{StaticResource ComboBoxTest2}"
                       SelectionChanged="kuratorBox_SelectionChanged"
                       DisplayMemberPath="familiya">
                 </ComboBox>
+                <Label Content="Поиск" Grid.Column="2" HorizontalAlignment="Right" VerticalAlignment="Center" FontSize="14" Foreground="White"/>
+                <TextBox x:Name="PoiskBT" 
+                         Grid.Column="3" 
+                         Margin="10,10,10,10" 
+                         Background="#FF262829" 
+                         TextChanged="PoiskBT_TextChanged"/>
                 <Button x:Name="AddBtn"
                       Content="Добавить"
-                      Grid.Column="2"
+                      Grid.Column="4"
                       Grid.Row="0"
                       HorizontalAlignment="Center" 
                       Margin="10,10,10,10" 
@@ -161,7 +190,7 @@
                       HeadersVisibility="Column" 
                       ScrollViewer.VerticalScrollBarVisibility="Visible"
                       CanUserAddRows="False" 
-                      Grid.ColumnSpan="4"
+                      Grid.ColumnSpan="5"
                       Grid.Row="1"
                       IsReadOnly='True' HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
                     <DataGrid.Columns>
@@ -176,14 +205,14 @@
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
-                        <DataGridTemplateColumn Header="Имя" Width="150">
+                        <DataGridTemplateColumn Header="Фамилия" Width="150">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
                                     <TextBox Text="{Binding familiya}"/>
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
-                        <DataGridTemplateColumn Header="Отчество" Width="150">
+                        <DataGridTemplateColumn Header="Имя" Width="150">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
                                     <TextBox Text="{Binding imya}"/>

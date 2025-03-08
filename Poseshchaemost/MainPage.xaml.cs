@@ -23,6 +23,7 @@ namespace Poseshchaemost
     {
         private SerialPort serialPort;
         private String data1 = "";
+        private bool naprovlenie = false;
 
         public MainPage()
         {
@@ -39,7 +40,12 @@ namespace Poseshchaemost
         {
             var sotrudnikList = BD.GetBD().Sotrudniks.OrderBy(x => x.familiya).ToList();
             var kuratorList = sotrudnikList.Where(x => x.id_sotrudnik == x.kurator).ToList();
+
             kuratorList.Insert(0, new Sotrudnik {  familiya = "Все" });
+
+            sotrudnikList = sotrudnikList.Where(x => x.familiya.ToLower().Contains(PoiskBT.Text.ToLower()) ||
+                                                     x.imya.ToLower().Contains(PoiskBT.Text.ToLower()) ||
+                                                     x.otchestvo.ToLower().Contains(PoiskBT.Text.ToLower())).ToList();
 
             if (kuratorBox.SelectedIndex > 0)
             {
@@ -59,33 +65,63 @@ namespace Poseshchaemost
 
         private void InitializeSerialPort()
         {
-            //serialPort = new SerialPort
-            //{
-            //    PortName = Meneger.comPort,  // Укажите правильный порт
-            //    BaudRate = 9600,
-            //    Parity = Parity.None,
-            //    DataBits = 8,
-            //    StopBits = StopBits.One,
-            //    Handshake = Handshake.None
-            //};
+            serialPort = new SerialPort
+            {
+                PortName = Meneger.comPort,  // Укажите правильный порт
+                BaudRate = 9600,
+                Parity = Parity.None,
+                DataBits = 8,
+                StopBits = StopBits.One,
+                Handshake = Handshake.None
+            };
 
-            //serialPort.DataReceived += SerialPort_DataReceived;
+            serialPort.DataReceived += SerialPort_DataReceived;
 
-            //try
-            //{
-            //    serialPort.Open();
-            //}
-            //catch (Exception ex)
-            //{
-            //    MessageBox.Show($"Ошибка открытия порта: {ex.Message}");
-            //}
+            try
+            {
+                serialPort.Open();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ошибка открытия порта: {ex.Message}");
+            }
         }
 
         private void SerialPort_DataReceived(object sender, SerialDataReceivedEventArgs e)
         {
             string data = serialPort.ReadExisting();
 
-            //Dispatcher.Invoke(() => ReceivedDataTextBox.Text = data);
+            foreach (var item in data)
+            {
+                switch (item)
+                {
+                    case '+':
+                        naprovlenie = true;
+                        data1 = "";
+                        break;
+                    case '-':
+                        naprovlenie = false;
+                        data1 = "";
+                        break;
+                    case ';':
+                        string a;
+                        if (naprovlenie)
+                        {
+                            a = "Вошел  ";
+                        }
+                        else
+                        {
+                            a = "Вышел  ";
+                        }
+                        a += data1;
+                        //Dispatcher.Invoke(() => TB.Text = a);
+                        break;
+                    default:
+                        data1 += item;
+                        break;
+                }
+            }
+            
         }
 
         private void Window_Closed(object sender, EventArgs e)
@@ -120,6 +156,11 @@ namespace Poseshchaemost
         private void Page_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
             Update();
+        }
+
+        private void PoiskBT_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            Update1();
         }
     }
 }

@@ -39,7 +39,6 @@ namespace Poseshchaemost
         private void ConnectButton_Click(object sender, RoutedEventArgs e)
         {
             string Pass = ConfigurationManager.AppSettings["Password"];
-            Pass = SecureConfig.Decrypt(Pass);
 
             if (Pass == PasswordBox.Password)
             {

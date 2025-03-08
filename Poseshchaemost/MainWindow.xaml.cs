@@ -25,9 +25,9 @@ namespace Poseshchaemost
             InitializeComponent();
             BD v = null;
             v = BD.GetBD();
-            //MainFrame.Navigate(new Vkhod());
-            Meneger.comPort = "COM1";
-            MainFrame.Navigate(new MainPage());
+            MainFrame.Navigate(new Vkhod());
+            //Meneger.comPort = "COM1";
+            //MainFrame.Navigate(new MainPage());
             Meneger.Frame = MainFrame;
         }
 

@@ -28,8 +28,7 @@ namespace Poseshchaemost
         {
             InitializeComponent();
             InitializeSerialPort();
-            dataGrid.ItemsSource = PoseshchaemostEntities1.GetPoseshchaemostEntities1es().Sotrudnik.ToList();
-            Update();
+            
         }
         public void Update()
         {
@@ -38,7 +37,7 @@ namespace Poseshchaemost
 
         private void Update1()
         {
-            var sotrudnikList = PoseshchaemostEntities1.GetPoseshchaemostEntities1es().Sotrudnik.ToList();
+            var sotrudnikList = PoseshchaemostEntities1.GetPoseshchaemostEntities1es().Sotrudnik.OrderBy(x => x.familiya).ToList();
             var kuratorList = sotrudnikList.Where(x => x.id_sotrudnik == x.kurator).ToList();
             kuratorList.Insert(0, new Sotrudnik {  familiya = "Все" });
 
@@ -97,14 +96,30 @@ namespace Poseshchaemost
             }
         }
 
+        private void AddBtn_Click(object sender, RoutedEventArgs e)
+        {
+            Meneger.Frame.Navigate(new SotrudnikPage(new Sotrudnik()));
+        }
+
         private void UpBtn_Click(object sender, RoutedEventArgs e)
         {
-
+            Meneger.Frame.Navigate(new SotrudnikPage((sender as Button).DataContext as Sotrudnik));
         }
 
         private void DelBtn_Click(object sender, RoutedEventArgs e)
         {
+            if (MessageBox.Show("Вы дельствительно хотете уволить сотрудника", "Подверждение", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+            {
+                var sotrudnik = (sender as Button).DataContext as Sotrudnik;
+                PoseshchaemostEntities1.GetPoseshchaemostEntities1es().Sotrudnik.Remove(sotrudnik);
+                PoseshchaemostEntities1.GetPoseshchaemostEntities1es().SaveChanges();
+                Update1();
+            }
+        }
 
+        private void Page_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
+        {
+            Update();
         }
     }
 }

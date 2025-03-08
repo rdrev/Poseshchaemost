@@ -44,42 +44,73 @@
                 </Setter.Value>
             </Setter>
         </Style>
+        <Style TargetType="{x:Type DataGrid}">
+            <Setter Property="Background" Value="#FF262829"/>
+        </Style>
+        <Style TargetType="{x:Type DataGridColumnHeader}">
+            <Setter Property="Background" Value="#FF393C3E"/>
+            <Setter Property="Foreground" Value="#c2c2c2"/>
+            <Setter Property="BorderBrush" Value="#FF393C3E"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="BorderThickness" Value="0,0,1,1"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+        </Style>
+        <Style TargetType="{x:Type DataGridRow}">
+            <Setter Property="Background" Value="#FF393C3E"/>
+            <Setter Property="Foreground" Value="#FF393C3E"/>
+            <Setter Property="BorderBrush" Value="#FF393C3E"/>
+            <Setter Property="BorderThickness" Value="0,0,1,1"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+        </Style>
+        <Style TargetType="{x:Type DataGridCell}">
+            <Setter Property="BorderBrush" Value="#FF393C3E"/>
+            <Setter Property="BorderThickness" Value="0,0,1,1"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+        </Style>
+        <Style TargetType="TabItem">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="TabItem">
+                        <Border Name="Border"
+                    Background="#FF393C3E"
+                    BorderBrush="#FF393C3E"
+                    Padding="10,5"
+                    BorderThickness="1">
+                            <ContentPresenter ContentSource="Header" HorizontalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsSelected" Value="True">
+                                <Setter TargetName="Border" Property="Background" Value="#FF393C3E"/>
+                                <Setter Property="Foreground" Value="#c2c2c2"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style TargetType="TextBox">
+            <Setter Property="Background" Value="#FF393C3E"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderBrush" Value="#FF393C3E"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="HorizontalContentAlignment" Value="Left"/>
+        </Style>
     </Page.Resources>
     <TabControl Background="Black">
-        <TabControl.Resources>
-            <Style TargetType="TabItem">
-                <Setter Property="Template">
-                    <Setter.Value>
-                        <ControlTemplate TargetType="TabItem">
-                            <Border Name="Border"
-                                Background="#FF393C3E"
-                                BorderBrush="#FF393C3E"
-                                Padding="10,5"
-                                BorderThickness="1">
-                                <ContentPresenter ContentSource="Header" HorizontalAlignment="Center"/>
-                            </Border>
-                            <ControlTemplate.Triggers>
-                                <Trigger Property="IsSelected" Value="True">
-                                    <Setter TargetName="Border" Property="Background" Value="#FF393C3E"/>
-                                    <Setter Property="Foreground" Value="#c2c2c2"/>
-                                </Trigger>
-                            </ControlTemplate.Triggers>
-                        </ControlTemplate>
-                    </Setter.Value>
-                </Setter>
-            </Style>
-        </TabControl.Resources>
         <TabItem Header="Сотрудники" >
             <Grid Background="#FF393C3E">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition Width="55*"/>
-                    <ColumnDefinition Width="739*"/>
+                    <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
+                
                 <Label Content="Выберите куратора" Grid.Column="0" Grid.Row="0"  HorizontalAlignment="Right" VerticalAlignment="Center" FontSize="14" Foreground="White"/>
                 <ComboBox x:Name="kuratorBox"
                       Grid.Column="1"
@@ -99,47 +130,81 @@
                       SelectionChanged="kuratorBox_SelectionChanged"
                       DisplayMemberPath="familiya">
                 </ComboBox>
-                <DataGrid x:Name="dataGrid"
-                      Grid.Column="1"
+                
+                <DataGrid x:Name="dataGrid"                 
                       Height="Auto"
                       Width="Auto"
                       HorizontalAlignment="Left" 
-                      Margin="10,10,0,0" 
+                      Margin="30,10,0,0" 
                       VerticalAlignment="Top" 
-                      Background="#FF262829" 
-                      Foreground="Black" 
-                      BorderBrush="Black" 
-                      OpacityMask="Black" 
                       AutoGenerateColumns="False"
                       HeadersVisibility="Column" 
                       ScrollViewer.VerticalScrollBarVisibility="Visible"
                       CanUserAddRows="False" 
                       Grid.ColumnSpan="2"
                       Grid.Row="1"
-                      IsReadOnly='True'>
-                    <DataGrid.Resources>
-                        <Style TargetType="{x:Type DataGridColumnHeader}">
-                            <Setter Property="Background" Value="#FF393C3E"/>
-                            <Setter Property="Foreground" Value="#c2c2c2"/>
-                            <Setter Property="BorderBrush" Value="#FF393C3E"/>
-                            <Setter Property="FontSize" Value="16"/>
-                            <Setter Property="BorderThickness" Value="0,0,1,1"/>
-                        </Style>
-                        <Style TargetType="{x:Type DataGridRow}">
-                            <Setter Property="Background" Value="#FF393C3E"/>
-                            <Setter Property="Foreground" Value="#FF393C3E"/>
-                            <Setter Property="BorderBrush" Value="#FF393C3E"/>
-                            <Setter Property="BorderThickness" Value="0,0,1,1"/>
-                        </Style>
-                        <Style TargetType="{x:Type DataGridCell}">
-                            <Setter Property="BorderBrush" Value="#FF393C3E"/>
-                            <Setter Property="BorderThickness" Value="0,0,1,1"/>
-                        </Style>
-                    </DataGrid.Resources>
+                      IsReadOnly='True' HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
                     <DataGrid.Columns>
-                        <DataGridTextColumn Header="Фамилия" Binding="{Binding familiya}" Width="150" Foreground="White" FontSize="16"/>
-                        <DataGridTextColumn Header="Имя" Binding="{Binding imya}" Width="150" Foreground="White" FontSize="16"/>
-                        <DataGridTextColumn Header="Отчество" Binding="{Binding otchestvo}" Width="150" Foreground="White" FontSize="16"/>
+                        <DataGridTemplateColumn Header="Фото">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Image Height="70" Width="70">
+                                        <Image.Source>
+                                            <Binding Path="foto"/>
+                                        </Image.Source>
+                                    </Image>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                        <DataGridTemplateColumn Header="Имя" Width="150">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBox Text="{Binding familiya}"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                        <DataGridTemplateColumn Header="Отчество" Width="150">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBox Text="{Binding imya}"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                        <DataGridTemplateColumn Header="Отчество" Width="150">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBox Text="{Binding otchestvo}"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                        <DataGridTemplateColumn >
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Button 
+                                        x:Name="UpBtn"
+                                        Content="Изменить"
+                                        Width="auto"
+                                        Click="UpBtn_Click" 
+                                        Background="#FF393C3E" 
+                                        Foreground="White"
+                                        BorderBrush="#FF393C3E"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                        <DataGridTemplateColumn >
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Button 
+                                        x:Name="DelBtn"
+                                        Content="Удалить"
+                                        Width="auto"
+                                        Click="DelBtn_Click" 
+                                        Background="#FF393C3E" 
+                                        Foreground="White"
+                                        BorderBrush="#FF393C3E"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
                     </DataGrid.Columns>
                 </DataGrid>
             </Grid>

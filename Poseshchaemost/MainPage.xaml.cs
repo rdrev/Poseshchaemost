@@ -40,6 +40,13 @@ namespace Poseshchaemost
         {
             var sotrudnikList = PoseshchaemostEntities1.GetPoseshchaemostEntities1es().Sotrudnik.ToList();
             var kuratorList = sotrudnikList.Where(x => x.id_sotrudnik == x.kurator).ToList();
+            kuratorList.Insert(0, new Sotrudnik {  familiya = "Все" });
+
+            if (kuratorBox.SelectedIndex > 0)
+            {
+                var kurator = (Sotrudnik)kuratorBox.SelectedItem;
+                sotrudnikList = sotrudnikList.Where(x => x.kurator == kurator.id_sotrudnik).ToList();
+            }
 
             kuratorBox.ItemsSource = kuratorList;
 
@@ -48,7 +55,7 @@ namespace Poseshchaemost
 
         private void kuratorBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-
+            Update1();
         }
 
         private void InitializeSerialPort()
@@ -88,6 +95,16 @@ namespace Poseshchaemost
             {
                 serialPort.Close();
             }
+        }
+
+        private void UpBtn_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void DelBtn_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

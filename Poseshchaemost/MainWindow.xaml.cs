@@ -23,8 +23,8 @@ namespace Poseshchaemost
         public MainWindow()
         {
             InitializeComponent();
-            BD v = null;
-            v = BD.GetBD();
+            DB v = null;
+            v = DB.GetBD();
             MainFrame.Navigate(new Vkhod());
             //Meneger.comPort = "COM1";
             //MainFrame.Navigate(new MainPage());

@@ -17,6 +17,7 @@ namespace Poseshchaemost
         public Sotrudnik()
         {
             this.Prokhods = new HashSet<Prokhod>();
+            this.Sotrudnik1 = new HashSet<Sotrudnik>();
         }
     
         public int id_sotrudnik { get; set; }
@@ -28,5 +29,7 @@ namespace Poseshchaemost
         public byte[] foto { get; set; }
     
         public virtual ICollection<Prokhod> Prokhods { get; set; }
+        public virtual ICollection<Sotrudnik> Sotrudnik1 { get; set; }
+        public virtual Sotrudnik Sotrudnik2 { get; set; }
     }
 }

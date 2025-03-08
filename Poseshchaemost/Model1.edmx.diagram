@@ -4,11 +4,11 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="6bdc35a6494549ac8a3b48d859606fb8" Name="Diagram1">
-        <EntityTypeShape EntityType="PoseshchaemostModel.Prokhod" Width="1.5" PointX="3" PointY="1.25" IsExpanded="true" />
+      <Diagram DiagramId="d308af5362634000a86c9a4c9b77292f" Name="Diagram1">
+        <EntityTypeShape EntityType="PoseshchaemostModel.Prokhod" Width="1.5" PointX="3" PointY="1.5" IsExpanded="true" />
         <EntityTypeShape EntityType="PoseshchaemostModel.Sotrudnik" Width="1.5" PointX="0.75" PointY="1" IsExpanded="true" />
-        <EntityTypeShape EntityType="PoseshchaemostModel.sysdiagram" Width="1.5" PointX="0.75" PointY="4.75" IsExpanded="true" />
         <AssociationConnector Association="PoseshchaemostModel.FK_Prokhod_Sotrudnik" ManuallyRouted="false" />
+        <AssociationConnector Association="PoseshchaemostModel.FK_Sotrudnik_Sotrudnik" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

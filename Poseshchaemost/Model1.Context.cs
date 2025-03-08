@@ -13,18 +13,18 @@ namespace Poseshchaemost
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class BD : DbContext
+    public partial class DB : DbContext
     {
-        private static BD bd = null;
-        public BD()
-            : base("name=BD")
+        private static DB bd;
+        public DB()
+            : base("name=DB")
         {
         }
-        public static BD GetBD()
+        public static DB GetBD()
         {
-            if(bd == null)
+            if (bd == null)
             {
-                bd = new BD();
+                bd = new DB();
             }
             return bd;
         }
@@ -36,6 +36,5 @@ namespace Poseshchaemost
     
         public DbSet<Prokhod> Prokhods { get; set; }
         public DbSet<Sotrudnik> Sotrudniks { get; set; }
-        public DbSet<sysdiagram> sysdiagrams { get; set; }
     }
 }

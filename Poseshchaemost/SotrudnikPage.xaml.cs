@@ -30,7 +30,7 @@ namespace Poseshchaemost
             this.sotrudnik = sotrudnik;
 
             DataContext = this.sotrudnik;
-            var kuratorList = BD.GetBD().Sotrudniks.Where(x => x.id_sotrudnik == x.kurator).ToList();
+            var kuratorList = DB.GetBD().Sotrudniks.Where(x => x.id_sotrudnik == x.kurator).ToList();
             CBB.ItemsSource = kuratorList;
 
             if (sotrudnik.id_sotrudnik == 0)
@@ -74,17 +74,17 @@ namespace Poseshchaemost
                 {
                     sotrudnik.kurator = ((Sotrudnik)CBB.SelectedItem).id_sotrudnik;
 
-                    BD.GetBD().Sotrudniks.Add(sotrudnik);
-                    BD.GetBD().SaveChanges();
+                    DB.GetBD().Sotrudniks.Add(sotrudnik);
+                    DB.GetBD().SaveChanges();
                 }
                 else
                 {
                     sotrudnik.kurator = ((Sotrudnik)CBB.SelectedItem).id_sotrudnik;
 
-                    var task = BD.GetBD().Sotrudniks.Find(sotrudnik.id_sotrudnik);
+                    var task = DB.GetBD().Sotrudniks.Find(sotrudnik.id_sotrudnik);
                     task = sotrudnik;
 
-                    BD.GetBD().SaveChanges();
+                    DB.GetBD().SaveChanges();
                 }
             }
             catch (Exception ex)

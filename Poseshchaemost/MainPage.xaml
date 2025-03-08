@@ -7,6 +7,44 @@
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="Main">
+    <Page.Resources>
+        <Style x:Key="ComboBoxTest2" TargetType="{x:Type ComboBox}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ComboBox">
+                        <Grid>
+                            <ToggleButton Grid.Column="2" Focusable="false" IsChecked="{Binding Path=IsDropDownOpen,Mode=TwoWay,RelativeSource={RelativeSource TemplatedParent}}" >
+                                <ToggleButton.Template>
+                                    <ControlTemplate>
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="5*" />
+                                                <ColumnDefinition Width="*" />
+                                            </Grid.ColumnDefinitions>
+                                            <Border x:Name="Border"  Grid.ColumnSpan="2"  Background="#FF393C3E" BorderBrush="White" BorderThickness="1" />
+                                            <Border Grid.Column="0" CornerRadius="5,0,0,5"  Margin="1"  Background="#FF393C3E"  BorderBrush="White" BorderThickness="0,0,1,0" />
+                                            <Path x:Name="Arrow" Grid.Column="1"  Fill="White" HorizontalAlignment="Center" VerticalAlignment="Center" Data="M 0 0 L 4 4 L 8 0 Z"/>
+                                        </Grid>
+                                    </ControlTemplate>
+                                </ToggleButton.Template>
+                            </ToggleButton>
+                            <ContentPresenter Name="ContentSite" IsHitTestVisible="False"  Content="{TemplateBinding SelectionBoxItem}" ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}" ContentTemplateSelector="{TemplateBinding ItemTemplateSelector}" Margin="3"  />
+                            <TextBox x:Name="PART_EditableTextBox" Visibility="Hidden" IsReadOnly="{TemplateBinding IsReadOnly}"/>
+                            <Popup Name="Popup" Placement="Bottom" IsOpen="{TemplateBinding IsDropDownOpen}" AllowsTransparency="True"  Focusable="False" PopupAnimation="Slide">
+                                <Grid  Name="DropDown" SnapsToDevicePixels="True" MinWidth="{TemplateBinding ActualWidth}" MaxHeight="{TemplateBinding MaxDropDownHeight}">
+                                    <Border x:Name="DropDownBorder" Background="#FF393C3E" />
+                                    <Border x:Name="Border"  Background="#FF393C3E" BorderBrush="White" BorderThickness="1" />
+                                    <ScrollViewer SnapsToDevicePixels="True">
+                                        <StackPanel IsItemsHost="True" />
+                                    </ScrollViewer>
+                                </Grid>
+                            </Popup>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Page.Resources>
     <TabControl Background="Black">
         <TabControl.Resources>
             <Style TargetType="TabItem">
@@ -42,7 +80,25 @@
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
-
+                <Label Content="Выберите куратора" Grid.Column="0" Grid.Row="0"  HorizontalAlignment="Right" VerticalAlignment="Center" FontSize="14" Foreground="White"/>
+                <ComboBox x:Name="kuratorBox"
+                      Grid.Column="1"
+                      Height="30"
+                      Width="200"
+                      HorizontalAlignment="Left" 
+                      Margin="10,10,10,10" 
+                      VerticalAlignment="Top" 
+                      Background="#FF262829" 
+                      Foreground="White" 
+                      BorderBrush="Black" 
+                      OpacityMask="Black" 
+                      FontSize="16"
+                      Grid.ColumnSpan="2"
+                      Grid.Row="0"
+                      Style="{StaticResource ComboBoxTest2}"
+                      SelectionChanged="kuratorBox_SelectionChanged"
+                      DisplayMemberPath="familiya">
+                </ComboBox>
                 <DataGrid x:Name="dataGrid"
                       Grid.Column="1"
                       Height="Auto"

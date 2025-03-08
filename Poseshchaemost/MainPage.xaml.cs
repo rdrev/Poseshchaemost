@@ -29,30 +29,50 @@ namespace Poseshchaemost
             InitializeComponent();
             InitializeSerialPort();
             dataGrid.ItemsSource = PoseshchaemostEntities1.GetPoseshchaemostEntities1es().Sotrudnik.ToList();
+            Update();
+        }
+        public void Update()
+        {
+            Update1();
+        }
+
+        private void Update1()
+        {
+            var sotrudnikList = PoseshchaemostEntities1.GetPoseshchaemostEntities1es().Sotrudnik.ToList();
+            var kuratorList = sotrudnikList.Where(x => x.id_sotrudnik == x.kurator).ToList();
+
+            kuratorBox.ItemsSource = kuratorList;
+
+            dataGrid.ItemsSource = sotrudnikList;
+        }
+
+        private void kuratorBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
         }
 
         private void InitializeSerialPort()
         {
-            serialPort = new SerialPort
-            {
-                PortName = Meneger.comPort,  // Укажите правильный порт
-                BaudRate = 9600,
-                Parity = Parity.None,
-                DataBits = 8,
-                StopBits = StopBits.One,
-                Handshake = Handshake.None
-            };
+            //serialPort = new SerialPort
+            //{
+            //    PortName = Meneger.comPort,  // Укажите правильный порт
+            //    BaudRate = 9600,
+            //    Parity = Parity.None,
+            //    DataBits = 8,
+            //    StopBits = StopBits.One,
+            //    Handshake = Handshake.None
+            //};
 
-            serialPort.DataReceived += SerialPort_DataReceived;
+            //serialPort.DataReceived += SerialPort_DataReceived;
 
-            try
-            {
-                serialPort.Open();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Ошибка открытия порта: {ex.Message}");
-            }
+            //try
+            //{
+            //    serialPort.Open();
+            //}
+            //catch (Exception ex)
+            //{
+            //    MessageBox.Show($"Ошибка открытия порта: {ex.Message}");
+            //}
         }
 
         private void SerialPort_DataReceived(object sender, SerialDataReceivedEventArgs e)

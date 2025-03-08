@@ -30,7 +30,7 @@ namespace Poseshchaemost
             this.sotrudnik = sotrudnik;
 
             DataContext = this.sotrudnik;
-            var kuratorList = PoseshchaemostEntities1.GetPoseshchaemostEntities1es().Sotrudnik.Where(x => x.id_sotrudnik == x.kurator).ToList();
+            var kuratorList = BD.GetBD().Sotrudniks.Where(x => x.id_sotrudnik == x.kurator).ToList();
             CBB.ItemsSource = kuratorList;
 
             if (sotrudnik.id_sotrudnik == 0)
@@ -74,17 +74,17 @@ namespace Poseshchaemost
                 {
                     sotrudnik.kurator = ((Sotrudnik)CBB.SelectedItem).id_sotrudnik;
 
-                    PoseshchaemostEntities1.GetPoseshchaemostEntities1es().Sotrudnik.Add(sotrudnik);
-                    PoseshchaemostEntities1.GetPoseshchaemostEntities1es().SaveChanges();
+                    BD.GetBD().Sotrudniks.Add(sotrudnik);
+                    BD.GetBD().SaveChanges();
                 }
                 else
                 {
                     sotrudnik.kurator = ((Sotrudnik)CBB.SelectedItem).id_sotrudnik;
 
-                    var task = PoseshchaemostEntities1.GetPoseshchaemostEntities1es().Sotrudnik.Find(sotrudnik.id_sotrudnik);
+                    var task = BD.GetBD().Sotrudniks.Find(sotrudnik.id_sotrudnik);
                     task = sotrudnik;
 
-                    PoseshchaemostEntities1.GetPoseshchaemostEntities1es().SaveChanges();
+                    BD.GetBD().SaveChanges();
                 }
             }
             catch (Exception ex)

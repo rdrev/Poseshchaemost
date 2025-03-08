@@ -12,6 +12,7 @@
           <Property Name="id_prokhod" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="sotrudnik" Type="int" Nullable="false" />
           <Property Name="data" Type="datetime" Nullable="false" />
+          <Property Name="naprovelenie" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="Sotrudnik">
           <Key>
@@ -24,6 +25,16 @@
           <Property Name="cart" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="kurator" Type="int" Nullable="false" />
           <Property Name="foto" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
         </EntityType>
         <Association Name="FK_Prokhod_Sotrudnik">
           <End Role="Sotrudnik" Type="Self.Sotrudnik" Multiplicity="1" />
@@ -40,6 +51,7 @@
         <EntityContainer Name="Хранилище PoseshchaemostModelContainer">
           <EntitySet Name="Prokhod" EntityType="Self.Prokhod" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Sotrudnik" EntityType="Self.Sotrudnik" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_Prokhod_Sotrudnik" Association="Self.FK_Prokhod_Sotrudnik">
             <End Role="Sotrudnik" EntitySet="Sotrudnik" />
             <End Role="Prokhod" EntitySet="Prokhod" />
@@ -57,6 +69,7 @@
           <Property Name="id_prokhod" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="sotrudnik" Type="Int32" Nullable="false" />
           <Property Name="data" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="naprovelenie" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="Sotrudnik1" Relationship="Self.FK_Prokhod_Sotrudnik" FromRole="Prokhod" ToRole="Sotrudnik" />
         </EntityType>
         <EntityType Name="Sotrudnik">
@@ -70,7 +83,17 @@
           <Property Name="cart" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="kurator" Type="Int32" Nullable="false" />
           <Property Name="foto" Type="Binary" MaxLength="Max" FixedLength="false" />
-          <NavigationProperty Name="Prokhod" Relationship="Self.FK_Prokhod_Sotrudnik" FromRole="Sotrudnik" ToRole="Prokhod" />
+          <NavigationProperty Name="Prokhods" Relationship="Self.FK_Prokhod_Sotrudnik" FromRole="Sotrudnik" ToRole="Prokhod" />
+        </EntityType>
+        <EntityType Name="sysdiagram">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
         </EntityType>
         <Association Name="FK_Prokhod_Sotrudnik">
           <End Role="Sotrudnik" Type="Self.Sotrudnik" Multiplicity="1" />
@@ -84,12 +107,13 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="PoseshchaemostEntities1" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Prokhod" EntityType="Self.Prokhod" />
-          <EntitySet Name="Sotrudnik" EntityType="Self.Sotrudnik" />
+        <EntityContainer Name="BD" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Prokhods" EntityType="Self.Prokhod" />
+          <EntitySet Name="Sotrudniks" EntityType="Self.Sotrudnik" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
           <AssociationSet Name="FK_Prokhod_Sotrudnik" Association="Self.FK_Prokhod_Sotrudnik">
-            <End Role="Sotrudnik" EntitySet="Sotrudnik" />
-            <End Role="Prokhod" EntitySet="Prokhod" />
+            <End Role="Sotrudnik" EntitySet="Sotrudniks" />
+            <End Role="Prokhod" EntitySet="Prokhods" />
           </AssociationSet>
         </EntityContainer>
       </Schema>
@@ -97,17 +121,18 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="Хранилище PoseshchaemostModelContainer" CdmEntityContainer="PoseshchaemostEntities1">
-          <EntitySetMapping Name="Prokhod">
+        <EntityContainerMapping StorageEntityContainer="Хранилище PoseshchaemostModelContainer" CdmEntityContainer="BD">
+          <EntitySetMapping Name="Prokhods">
             <EntityTypeMapping TypeName="PoseshchaemostModel.Prokhod">
               <MappingFragment StoreEntitySet="Prokhod">
                 <ScalarProperty Name="id_prokhod" ColumnName="id_prokhod" />
                 <ScalarProperty Name="sotrudnik" ColumnName="sotrudnik" />
                 <ScalarProperty Name="data" ColumnName="data" />
+                <ScalarProperty Name="naprovelenie" ColumnName="naprovelenie" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Sotrudnik">
+          <EntitySetMapping Name="Sotrudniks">
             <EntityTypeMapping TypeName="PoseshchaemostModel.Sotrudnik">
               <MappingFragment StoreEntitySet="Sotrudnik">
                 <ScalarProperty Name="id_sotrudnik" ColumnName="id_sotrudnik" />
@@ -117,6 +142,17 @@
                 <ScalarProperty Name="cart" ColumnName="cart" />
                 <ScalarProperty Name="kurator" ColumnName="kurator" />
                 <ScalarProperty Name="foto" ColumnName="foto" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="PoseshchaemostModel.sysdiagram">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -134,7 +170,7 @@
     <Options>
       <DesignerInfoPropertySet>
         <DesignerProperty Name="ValidateOnBuild" Value="true" />
-        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
         <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
         <DesignerProperty Name="UseLegacyProvider" Value="true" />
         <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />

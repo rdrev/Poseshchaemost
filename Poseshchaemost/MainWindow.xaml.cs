@@ -23,8 +23,8 @@ namespace Poseshchaemost
         public MainWindow()
         {
             InitializeComponent();
-            PoseshchaemostEntities1 v = null;
-            v = PoseshchaemostEntities1.GetPoseshchaemostEntities1es();
+            BD v = null;
+            v = BD.GetBD();
             //MainFrame.Navigate(new Vkhod());
             Meneger.comPort = "COM1";
             MainFrame.Navigate(new MainPage());

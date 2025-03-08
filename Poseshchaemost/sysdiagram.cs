@@ -12,13 +12,12 @@ namespace Poseshchaemost
     using System;
     using System.Collections.Generic;
     
-    public partial class Prokhod
+    public partial class sysdiagram
     {
-        public int id_prokhod { get; set; }
-        public int sotrudnik { get; set; }
-        public System.DateTime data { get; set; }
-        public bool naprovelenie { get; set; }
-    
-        public virtual Sotrudnik Sotrudnik1 { get; set; }
+        public string name { get; set; }
+        public int principal_id { get; set; }
+        public int diagram_id { get; set; }
+        public Nullable<int> version { get; set; }
+        public byte[] definition { get; set; }
     }
 }

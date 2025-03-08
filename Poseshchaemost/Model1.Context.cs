@@ -13,20 +13,20 @@ namespace Poseshchaemost
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class PoseshchaemostEntities1 : DbContext
+    public partial class BD : DbContext
     {
-        private static PoseshchaemostEntities1 DBE = null;
-
-        public PoseshchaemostEntities1()
-            : base("name=PoseshchaemostEntities1")
+        private static BD bd = null;
+        public BD()
+            : base("name=BD")
         {
         }
-
-        public static PoseshchaemostEntities1 GetPoseshchaemostEntities1es()
+        public static BD GetBD()
         {
-            if (DBE == null)
-                DBE = new PoseshchaemostEntities1();
-            return DBE;
+            if(bd == null)
+            {
+                bd = new BD();
+            }
+            return bd;
         }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
@@ -34,7 +34,8 @@ namespace Poseshchaemost
             throw new UnintentionalCodeFirstException();
         }
     
-        public DbSet<Prokhod> Prokhod { get; set; }
-        public DbSet<Sotrudnik> Sotrudnik { get; set; }
+        public DbSet<Prokhod> Prokhods { get; set; }
+        public DbSet<Sotrudnik> Sotrudniks { get; set; }
+        public DbSet<sysdiagram> sysdiagrams { get; set; }
     }
 }

@@ -37,7 +37,7 @@ namespace Poseshchaemost
 
         private void Update1()
         {
-            var sotrudnikList = PoseshchaemostEntities1.GetPoseshchaemostEntities1es().Sotrudnik.OrderBy(x => x.familiya).ToList();
+            var sotrudnikList = BD.GetBD().Sotrudniks.OrderBy(x => x.familiya).ToList();
             var kuratorList = sotrudnikList.Where(x => x.id_sotrudnik == x.kurator).ToList();
             kuratorList.Insert(0, new Sotrudnik {  familiya = "Все" });
 
@@ -111,8 +111,8 @@ namespace Poseshchaemost
             if (MessageBox.Show("Вы дельствительно хотете уволить сотрудника", "Подверждение", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
             {
                 var sotrudnik = (sender as Button).DataContext as Sotrudnik;
-                PoseshchaemostEntities1.GetPoseshchaemostEntities1es().Sotrudnik.Remove(sotrudnik);
-                PoseshchaemostEntities1.GetPoseshchaemostEntities1es().SaveChanges();
+                BD.GetBD().Sotrudniks.Remove(sotrudnik);
+                BD.GetBD().SaveChanges();
                 Update1();
             }
         }

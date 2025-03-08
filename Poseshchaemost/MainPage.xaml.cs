@@ -136,8 +136,10 @@ namespace Poseshchaemost
             var pro = DB.GetBD().Sotrudniks.Where(x => x.cart == catr).FirstOrDefault();
             if (pro != null)
             {
+                serialPort.Write("@");
+
                 PosItem.DataContext = pro;
-                //TB_naprovlenie.Text = napr ? "Вход" : "Выход";
+
                 if (napr)
                 {
                     TB_naprovlenie.Text = "Пришёл";
@@ -207,37 +209,27 @@ namespace Poseshchaemost
         {
             Update2();
         }
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            if (value is bool boolValue)
-            {
-                return boolValue ? "Пришёл" : "Ушёл";
-            }
-            return "Неизвестно";
-        }
-
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            if (value is string strValue)
-            {
-                return strValue == "Пришёл";
-            }
-            return false;
-        }
 
         private void MenuItem_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("1");
+            Meneger.Frame.Navigate(new PasswordPage());
         }
 
         private void MenuItem_Click_1(object sender, RoutedEventArgs e)
         {
-            Meneger.Frame.GoBack();
+            Meneger.Frame.GoBack(); 
+            
+            if (serialPort != null && serialPort.IsOpen)
+            {
+                serialPort.Close();
+            }
+
         }
 
         private void MenuItem_Click_2(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("3");
+            ReferenceWindow referenceWindow = new ReferenceWindow();
+            referenceWindow.Show();
         }
     }
 }

@@ -70,9 +70,11 @@
     </Page.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="300"/>
             <ColumnDefinition Width="200"/>
             <ColumnDefinition Width="200"/>
+            <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
@@ -87,21 +89,21 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <Image Source="{Binding foto}" x:Name="ipmegePoto" Grid.Row="2" Grid.RowSpan="6"/>
+        <Image Source="{Binding foto}" x:Name="ipmegePoto" Grid.Row="2" Grid.RowSpan="6" Grid.Column="1"/>
 
-        <TextBlock Text="Имя" Grid.Row="1" Grid.Column="1" />
-        <TextBlock Text="Отчество" Grid.Row="2" Grid.Column="1"/>
-        <TextBlock Text="Фамилия" Grid.Row="3" Grid.Column="1"/>
-        <TextBlock Text="Куратор" Grid.Row="4" Grid.Column="1"/>
-        <TextBlock Text="Карта" Grid.Row="5" Grid.Column="1"/>
+        <TextBlock Text="Имя" Grid.Row="1" Grid.Column="2" />
+        <TextBlock Text="Отчество" Grid.Row="2" Grid.Column="2"/>
+        <TextBlock Text="Фамилия" Grid.Row="3" Grid.Column="2"/>
+        <TextBlock Text="Куратор" Grid.Row="4" Grid.Column="2"/>
+        <TextBlock Text="Карта" Grid.Row="5" Grid.Column="2"/>
 
         <TextBox Text="{Binding familiya}" Grid.Row="1" Grid.Column="3" Height="25"/>
         <TextBox Text="{Binding imya}" Grid.Row="2" Grid.Column="3" Height="25"/>
         <TextBox Text="{Binding otchestvo}" Grid.Row="3" Grid.Column="3" Height="25"/>
         <ComboBox DisplayMemberPath="familiya" x:Name="CBB" Grid.Row="4" Grid.Column="3" Height="25" Foreground="White"/>
         <TextBox x:Name="TB_cart" Text="{Binding cart}" Grid.Row="5" Grid.Column="3" Height="25"/>
-        
-        <Button x:Name="ObzBtn" Content="Фото" HorizontalAlignment="Left" VerticalAlignment="Stretch" Click="ObzBtn_Click"  Grid.Row="8" Grid.Column="1" Width="72"/>
+
+        <Button x:Name="ObzBtn" Content="Фото" HorizontalAlignment="Right" VerticalAlignment="Stretch" Click="ObzBtn_Click"  Grid.Row="8" Grid.Column="1" Width="72" Margin="0,0,120,0"/>
         <Button x:Name="AddBtn" Content="ОК" HorizontalAlignment="Right" VerticalAlignment="Stretch" Click="AddBtn_Click"  Grid.Row="8" Grid.Column="1" Width="72"/>
         <Button x:Name="CleBtn" Content="Отмена" HorizontalAlignment="Left" VerticalAlignment="Stretch" Click="CleBtn_Click"  Grid.Row="8" Grid.Column="2" Width="72" Margin="50,0,0,0"/>
     </Grid>

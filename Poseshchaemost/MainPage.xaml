@@ -117,131 +117,143 @@
             <MenuItem Header="О программе" Click="MenuItem_Click_2"></MenuItem>
         </Menu>
         <TabControl Background="Black" Grid.Row="1">
-        <TabItem Header="Посещаемость" x:Name="PosItem" >
-            <Grid Background="#FF393C3E">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="300"/>
-                    <ColumnDefinition Width="200"/>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="20"/>
-                    <RowDefinition Height="auto"/>
-                    <RowDefinition Height="auto"/>
-                    <RowDefinition Height="auto"/>
-                    <RowDefinition Height="auto"/>
-                    <RowDefinition Height="30"/>
-                    <RowDefinition Height="auto"/>
-                    <RowDefinition Height="*"/>
-                </Grid.RowDefinitions>
-                <Image Source="{Binding foto}" Grid.Row="1" Grid.RowSpan="5"/>
+            <TabItem Header="Посещаемость" x:Name="PosItem" >
+                <Grid Background="#FF393C3E">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                <Grid Background="#FF393C3E" Grid.ColumnSpan="3">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="300"/>
+                        <ColumnDefinition Width="200"/>
+                        <ColumnDefinition Width="250"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="20"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="30"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Image Source="{Binding foto}" Grid.Column="1" Grid.Row="1" Grid.RowSpan="6" Margin="0,0,0,43"/>
 
-                <TextBlock Text="Фамилия" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Right" Margin="0,10,20,10"/>
-                <TextBlock Text="Имя" Grid.Row="2" Grid.Column="1" HorizontalAlignment="Right" Margin="0,10,20,10"/>
-                <TextBlock Text="Отчество" Grid.Row="3" Grid.Column="1" HorizontalAlignment="Right" Margin="0,10,20,10"/>
-                <TextBlock Text="Куратор" Grid.Row="4" Grid.Column="1" HorizontalAlignment="Right" Margin="0,10,20,10"/>
-                <TextBlock Text="Поиск" Grid.Row="6" Grid.Column="1" HorizontalAlignment="Right" Margin="0,10,20,10"/>
-                
-                <TextBlock Text="{Binding familiya}" Grid.Row="1" Grid.Column="3"/>
-                <TextBlock Text="{Binding imya}" Grid.Row="2" Grid.Column="3"/>
-                <TextBlock Text="{Binding otchestvo}" Grid.Row="3" Grid.Column="3"/>
-                <TextBlock Text="{Binding Sotrudnik2.familiya}" Grid.Row="4" Grid.Column="3"/>
-                <TextBlock x:Name="TB_naprovlenie" Grid.Row="5" Grid.Column="3" />
-                <TextBox x:Name="PoiskBT2" 
+                    <TextBlock Text="Фамилия" Grid.Row="1" Grid.Column="2" HorizontalAlignment="Left" Margin="130,10,0,10" Width="50"/>
+                    <TextBlock Text="Имя" Grid.Row="2" Grid.Column="2" HorizontalAlignment="Left" Margin="157,10,0,10" Width="23"/>
+                    <TextBlock Text="Отчество" Grid.Row="3" Grid.Column="2" HorizontalAlignment="Left" Margin="129,10,0,10" Width="51"/>
+                    <TextBlock Text="Куратор" Grid.Row="4" Grid.Column="2" HorizontalAlignment="Left" Margin="135,10,0,10" Width="45"/>
+                    <TextBlock Text="Поиск" Grid.Row="6" Grid.Column="2" HorizontalAlignment="Left" Margin="146,10,0,10" Width="34"/>
+
+                    <TextBlock Text="{Binding familiya}" Grid.Row="1" Grid.Column="3" Margin="0,0,0,36" Grid.RowSpan="2"/>
+                    <TextBlock Text="{Binding imya}" Grid.Row="2" Grid.Column="3" Margin="0,0,0,36" Grid.RowSpan="2"/>
+                    <TextBlock Text="{Binding otchestvo}" Grid.Row="3" Grid.Column="3" Margin="0,0,0,36" Grid.RowSpan="2"/>
+                    <TextBlock Text="{Binding Sotrudnik2.familiya}" Grid.Row="4" Grid.Column="3" Margin="0,0,0,30" Grid.RowSpan="2"/>
+                    <TextBlock x:Name="TB_naprovlenie" Grid.Row="5" Grid.Column="3" Margin="0,0,0,43" Grid.RowSpan="2" />
+                    <TextBox x:Name="PoiskBT2" 
                      Grid.Column="3"
                      Grid.Row="6"
                      Margin="10,10,10,10" 
                      Background="#FF262829" 
                      TextChanged="PoiskBT2_TextChanged"/>
-                
-                <DataGrid x:Name="dataGrid2"                 
-                          Height="Auto"
+                    </Grid>
+                    <DataGrid x:Name="dataGrid2"    
                           HorizontalAlignment="Left" 
-                          Margin="30,10,0,0" 
+                          Margin="0,10,0,0" 
                           VerticalAlignment="Top" 
                           AutoGenerateColumns="False"
                           HeadersVisibility="Column" 
                           ScrollViewer.VerticalScrollBarVisibility="Visible"
                           CanUserAddRows="False" 
-                          Grid.ColumnSpan="3"
-                          Grid.Row="7"
+                          Grid.Row="1"
+                          Grid.Column="1"
                           IsReadOnly='True' 
                           HorizontalContentAlignment="Center" 
                           VerticalContentAlignment="Center">
-                    <DataGrid.Columns>
-                        <DataGridTemplateColumn Header="Дата" Width="150">
-                            <DataGridTemplateColumn.CellTemplate>
-                                <DataTemplate>
-                                    <TextBox Text="{Binding data}"/>
-                                </DataTemplate>
-                            </DataGridTemplateColumn.CellTemplate>
-                        </DataGridTemplateColumn>
-                        <DataGridTemplateColumn Header="Фамилия" Width="150">
-                            <DataGridTemplateColumn.CellTemplate>
-                                <DataTemplate>
-                                    <TextBox Text="{Binding Sotrudnik1.familiya}"/>
-                                </DataTemplate>
-                            </DataGridTemplateColumn.CellTemplate>
-                        </DataGridTemplateColumn>
-                        <DataGridTemplateColumn Header="Имя" Width="150">
-                            <DataGridTemplateColumn.CellTemplate>
-                                <DataTemplate>
-                                    <TextBox Text="{Binding Sotrudnik1.imya}"/>
-                                </DataTemplate>
-                            </DataGridTemplateColumn.CellTemplate>
-                        </DataGridTemplateColumn>
-                        <DataGridTemplateColumn Header="Отчество" Width="150">
-                            <DataGridTemplateColumn.CellTemplate>
-                                <DataTemplate>
-                                    <TextBox Text="{Binding Sotrudnik1.otchestvo}"/>
-                                </DataTemplate>
-                            </DataGridTemplateColumn.CellTemplate>
-                        </DataGridTemplateColumn>
-                        <DataGridTemplateColumn Header="Статус">
-                            <DataGridTemplateColumn.CellTemplate>
-                                <DataTemplate>
-                                    <TextBlock>
-                                        <TextBlock.Style>
-                                            <Style TargetType="TextBlock">
-                                                <Setter Property="Text" Value="Неизвестно"/>
-                                                <Style.Triggers>
-                                                    <DataTrigger Binding="{Binding naprovelenie}" Value="True">
-                                                        <Setter Property="Text" Value="Пришёл"/>
-                                                        <Setter Property="Foreground" Value="LawnGreen"/>
-                                                    </DataTrigger>
-                                                    <DataTrigger Binding="{Binding naprovelenie}" Value="False">
-                                                        <Setter Property="Text" Value="Ушёл"/>
-                                                        <Setter Property="Foreground" Value="Red"/>
-                                                    </DataTrigger>
-                                                </Style.Triggers>
-                                            </Style>
-                                        </TextBlock.Style>
-                                    </TextBlock>
-                                </DataTemplate>
-                            </DataGridTemplateColumn.CellTemplate>
-                        </DataGridTemplateColumn>
-                    </DataGrid.Columns>
+                        <DataGrid.Columns>
+                            <DataGridTemplateColumn Header="Дата" Width="150">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBox Text="{Binding data}"/>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                            <DataGridTemplateColumn Header="Фамилия" Width="150">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBox Text="{Binding Sotrudnik1.familiya}"/>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                            <DataGridTemplateColumn Header="Имя" Width="150">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBox Text="{Binding Sotrudnik1.imya}"/>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                            <DataGridTemplateColumn Header="Отчество" Width="150">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBox Text="{Binding Sotrudnik1.otchestvo}"/>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                            <DataGridTemplateColumn Header="Статус"  Width="100">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock>
+                                            <TextBlock.Style>
+                                                <Style TargetType="TextBlock">
+                                                    <Setter Property="Text" Value="Неизвестно"/>
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding naprovelenie}" Value="True">
+                                                            <Setter Property="Text" Value="Пришёл"/>
+                                                            <Setter Property="Foreground" Value="LawnGreen"/>
+                                                        </DataTrigger>
+                                                        <DataTrigger Binding="{Binding naprovelenie}" Value="False">
+                                                            <Setter Property="Text" Value="Ушёл"/>
+                                                            <Setter Property="Foreground" Value="Red"/>
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </TextBlock.Style>
+                                        </TextBlock>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                        </DataGrid.Columns>
 
-                </DataGrid>
-            </Grid>
-        </TabItem>
-        <TabItem Header="Сотрудники" >
-            <Grid Background="#FF393C3E">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="150"/>
-                    <ColumnDefinition Width="220"/>
-                    <ColumnDefinition Width="50"/>
-                    <ColumnDefinition Width="250"/>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="*"/>
-                </Grid.RowDefinitions>
+                    </DataGrid>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Сотрудники" >
+                <Grid Background="#FF393C3E">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="150"/>
+                        <ColumnDefinition Width="220"/>
+                        <ColumnDefinition Width="50"/>
+                        <ColumnDefinition Width="250"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
 
-                <Label Content="Выберите куратора" HorizontalAlignment="Right" VerticalAlignment="Center" FontSize="14" Foreground="White"/>
-                <ComboBox x:Name="kuratorBox"
-                      Grid.Column="1"
+                    <Label Content="Выберите куратора" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" FontSize="14" Foreground="White"/>
+                    <ComboBox x:Name="kuratorBox"
+                      Grid.Column="2"
                       Height="30"
                       Width="200"
                       HorizontalAlignment="Left" 
@@ -256,18 +268,18 @@
                       Style="{StaticResource ComboBoxTest2}"
                       SelectionChanged="kuratorBox_SelectionChanged"
                       DisplayMemberPath="familiya">
-                </ComboBox>
-                <Label Content="Поиск" Grid.Column="2" HorizontalAlignment="Right" VerticalAlignment="Center" FontSize="14" Foreground="White"/>
-                <TextBox x:Name="PoiskBT" 
-                         Grid.Column="3" 
+                    </ComboBox>
+                    <Label Content="Поиск" Grid.Column="3" HorizontalAlignment="Right" VerticalAlignment="Center" FontSize="14" Foreground="White"/>
+                    <TextBox x:Name="PoiskBT" 
+                         Grid.Column="4" 
                          Margin="10,10,10,10" 
                          Background="#FF262829" 
                          TextChanged="PoiskBT_TextChanged"/>
-                <Button x:Name="AddBtn"
+                    <Button x:Name="AddBtn"
                       Content="Добавить"
-                      Grid.Column="4"
+                      Grid.Column="5"
                       Grid.Row="0"
-                      HorizontalAlignment="Center" 
+                      HorizontalAlignment="Left" 
                       Margin="10,10,10,10" 
                       VerticalAlignment="Top" 
                       Width="100" 
@@ -277,7 +289,7 @@
                       Foreground="White"
                       BorderBrush="Gray"/>
 
-                <DataGrid x:Name="dataGrid"                 
+                    <DataGrid x:Name="dataGrid"                 
                       Height="Auto"
                       Width="Auto"
                       HorizontalAlignment="Left" 
@@ -286,47 +298,48 @@
                       AutoGenerateColumns="False"
                       HeadersVisibility="Column" 
                       ScrollViewer.VerticalScrollBarVisibility="Visible"
-                      CanUserAddRows="False" 
+                      CanUserAddRows="False"
+                      Grid.Column="1"
                       Grid.ColumnSpan="5"
                       Grid.Row="1"
                       IsReadOnly='True' HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
-                    <DataGrid.Columns>
-                        <DataGridTemplateColumn Header="Фото">
-                            <DataGridTemplateColumn.CellTemplate>
-                                <DataTemplate>
-                                    <Image Height="70" Width="70">
-                                        <Image.Source>
-                                            <Binding Path="foto"/>
-                                        </Image.Source>
-                                    </Image>
-                                </DataTemplate>
-                            </DataGridTemplateColumn.CellTemplate>
-                        </DataGridTemplateColumn>
-                        <DataGridTemplateColumn Header="Фамилия" Width="150">
-                            <DataGridTemplateColumn.CellTemplate>
-                                <DataTemplate>
-                                    <TextBox Text="{Binding familiya}"/>
-                                </DataTemplate>
-                            </DataGridTemplateColumn.CellTemplate>
-                        </DataGridTemplateColumn>
-                        <DataGridTemplateColumn Header="Имя" Width="150">
-                            <DataGridTemplateColumn.CellTemplate>
-                                <DataTemplate>
-                                    <TextBox Text="{Binding imya}"/>
-                                </DataTemplate>
-                            </DataGridTemplateColumn.CellTemplate>
-                        </DataGridTemplateColumn>
-                        <DataGridTemplateColumn Header="Отчество" Width="150">
-                            <DataGridTemplateColumn.CellTemplate>
-                                <DataTemplate>
-                                    <TextBox Text="{Binding otchestvo}"/>
-                                </DataTemplate>
-                            </DataGridTemplateColumn.CellTemplate>
-                        </DataGridTemplateColumn>
-                        <DataGridTemplateColumn >
-                            <DataGridTemplateColumn.CellTemplate>
-                                <DataTemplate>
-                                    <Button 
+                        <DataGrid.Columns>
+                            <DataGridTemplateColumn Header="Фото">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Image Height="70" Width="70">
+                                            <Image.Source>
+                                                <Binding Path="foto"/>
+                                            </Image.Source>
+                                        </Image>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                            <DataGridTemplateColumn Header="Фамилия" Width="150">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBox Text="{Binding familiya}"/>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                            <DataGridTemplateColumn Header="Имя" Width="150">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBox Text="{Binding imya}"/>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                            <DataGridTemplateColumn Header="Отчество" Width="150">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBox Text="{Binding otchestvo}"/>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                            <DataGridTemplateColumn >
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Button 
                                         x:Name="UpBtn"
                                         Content="Изменить"
                                         Width="auto"
@@ -334,13 +347,13 @@
                                         Background="#FF393C3E" 
                                         Foreground="White"
                                         BorderBrush="#FF393C3E"/>
-                                </DataTemplate>
-                            </DataGridTemplateColumn.CellTemplate>
-                        </DataGridTemplateColumn>
-                        <DataGridTemplateColumn >
-                            <DataGridTemplateColumn.CellTemplate>
-                                <DataTemplate>
-                                    <Button 
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                            <DataGridTemplateColumn >
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Button 
                                         x:Name="DelBtn"
                                         Content="Удалить"
                                         Width="auto"
@@ -348,15 +361,15 @@
                                         Background="#FF393C3E" 
                                         Foreground="White"
                                         BorderBrush="#FF393C3E"/>
-                                </DataTemplate>
-                            </DataGridTemplateColumn.CellTemplate>
-                        </DataGridTemplateColumn>
-                    </DataGrid.Columns>
-                </DataGrid>
-            </Grid>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Grid>
 
 
-        </TabItem>
+            </TabItem>
         </TabControl>
     </Grid>
 </Page>

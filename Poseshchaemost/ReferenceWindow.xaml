@@ -7,6 +7,6 @@
         mc:Ignorable="d"
         Title="ReferenceWindow" Height="300" Width="400" Background="#FF393C3E">
     <Grid>
-        <TextBox x:Name="textBox" Background="#FF393C3E" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" BorderBrush="#FF393C3E"/>
+        <TextBox x:Name="textBox" Background="#FF393C3E" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" BorderBrush="#FF393C3E" IsEnabled="False"/>
     </Grid>
 </Window>

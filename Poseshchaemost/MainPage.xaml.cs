@@ -48,6 +48,10 @@ namespace Poseshchaemost
 
             kuratorList.Insert(0, new Sotrudnik {  familiya = "Все" });
 
+
+            kuratorBox.ItemsSource = kuratorList;
+            kuratorBox0.ItemsSource = kuratorList;
+
             sotrudnikList = sotrudnikList.Where(x => x.familiya.ToLower().Contains(PoiskBT.Text.ToLower()) ||
                                                      x.imya.ToLower().Contains(PoiskBT.Text.ToLower()) ||
                                                      x.otchestvo.ToLower().Contains(PoiskBT.Text.ToLower())).ToList();
@@ -58,17 +62,21 @@ namespace Poseshchaemost
                 sotrudnikList = sotrudnikList.Where(x => x.kurator == kurator.id_sotrudnik).ToList();
             }
 
-            kuratorBox.ItemsSource = kuratorList;
-
             dataGrid.ItemsSource = sotrudnikList;
         }
 
         private void Update2()
         {
-            var prokhodList = DB.GetBD().Prokhods.OrderByDescending(x => x.data).ToList();
+            var prokhodList = DB.GetBD().Prokhods.OrderByDescending(x => x.data).ToList(); 
             prokhodList = prokhodList.Where(x => x.Sotrudnik1.familiya.ToLower().Contains(PoiskBT2.Text.ToLower()) ||
                                                  x.Sotrudnik1.imya.ToLower().Contains(PoiskBT2.Text.ToLower()) ||
                                                  x.Sotrudnik1.otchestvo.ToLower().Contains(PoiskBT2.Text.ToLower())).ToList();
+            if (kuratorBox0.SelectedIndex > 0)
+            {
+                var kurator = (Sotrudnik)kuratorBox0.SelectedItem;
+                prokhodList = prokhodList.Where(x => x.Sotrudnik1.kurator == kurator.id_sotrudnik).ToList();
+            }
+
             dataGrid2.ItemsSource = prokhodList;
         }
 
@@ -230,6 +238,11 @@ namespace Poseshchaemost
         {
             ReferenceWindow referenceWindow = new ReferenceWindow();
             referenceWindow.Show();
+        }
+
+        private void kuratorBox0_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            Update2();
         }
     }
 }

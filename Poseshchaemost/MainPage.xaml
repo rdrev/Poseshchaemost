@@ -131,8 +131,8 @@
                 <Grid Background="#FF393C3E" Grid.ColumnSpan="3">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="300"/>
-                        <ColumnDefinition Width="200"/>
+                         <ColumnDefinition Width="250"/>
+                         <ColumnDefinition Width="250"/>
                         <ColumnDefinition Width="250"/>
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
@@ -152,21 +152,39 @@
                     <TextBlock Text="Имя" Grid.Row="2" Grid.Column="2" HorizontalAlignment="Left" Margin="157,10,0,10" Width="23"/>
                     <TextBlock Text="Отчество" Grid.Row="3" Grid.Column="2" HorizontalAlignment="Left" Margin="129,10,0,10" Width="51"/>
                     <TextBlock Text="Куратор" Grid.Row="4" Grid.Column="2" HorizontalAlignment="Left" Margin="135,10,0,10" Width="45"/>
-                    <TextBlock Text="Поиск" Grid.Row="6" Grid.Column="2" HorizontalAlignment="Left" Margin="146,10,0,10" Width="34"/>
+                        <TextBlock Text="Ф.И.О." Grid.Row="6" Grid.Column="2" HorizontalAlignment="Right" Margin="146,10,0,10" Width="34" VerticalAlignment="Center"/>
+                        <TextBlock Text="Куратор" Grid.Row="6" Grid.Column="1" HorizontalAlignment="Right" Margin="10,10,10,10"  VerticalAlignment="Center"/>
 
                     <TextBlock Text="{Binding familiya}" Grid.Row="1" Grid.Column="3" Margin="0,0,0,36" Grid.RowSpan="2"/>
                     <TextBlock Text="{Binding imya}" Grid.Row="2" Grid.Column="3" Margin="0,0,0,36" Grid.RowSpan="2"/>
                     <TextBlock Text="{Binding otchestvo}" Grid.Row="3" Grid.Column="3" Margin="0,0,0,36" Grid.RowSpan="2"/>
                     <TextBlock Text="{Binding Sotrudnik2.familiya}" Grid.Row="4" Grid.Column="3" Margin="0,0,0,30" Grid.RowSpan="2"/>
                     <TextBlock x:Name="TB_naprovlenie" Grid.Row="5" Grid.Column="3" Margin="0,0,0,43" Grid.RowSpan="2" />
+                    <ComboBox x:Name="kuratorBox0"
+                          Grid.Column="2"
+                          Height="30"
+                          Width="200"
+                          HorizontalAlignment="Left" 
+                          Margin="10,10,10,10" 
+                          VerticalAlignment="Top" 
+                          Background="#FF262829" 
+                          Foreground="White" 
+                          BorderBrush="Black" 
+                          OpacityMask="Black" 
+                          FontSize="16"
+                          Grid.Row="6"
+                          Style="{StaticResource ComboBoxTest2}"
+                          SelectionChanged="kuratorBox0_SelectionChanged"
+                          DisplayMemberPath="familiya">
+                        </ComboBox>
                     <TextBox x:Name="PoiskBT2" 
-                     Grid.Column="3"
-                     Grid.Row="6"
-                     Margin="10,10,10,10" 
-                     Background="#FF262829" 
-                     TextChanged="PoiskBT2_TextChanged"
-                     BorderBrush="White"
-                     BorderThickness="0.5"/>
+                         Grid.Column="3"
+                         Grid.Row="6"
+                         Margin="10,10,10,10" 
+                         Background="#FF262829" 
+                         TextChanged="PoiskBT2_TextChanged"
+                         BorderBrush="White"
+                         BorderThickness="0.5"/>
                     </Grid>
                     <DataGrid x:Name="dataGrid2"    
                           HorizontalAlignment="Left" 

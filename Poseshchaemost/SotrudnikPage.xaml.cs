@@ -23,6 +23,7 @@ namespace Poseshchaemost
     public partial class SotrudnikPage : Page
     {
         private Sotrudnik sotrudnik = new Sotrudnik();
+        private List<Sotrudnik> kuratorList = null;
 
         public SotrudnikPage(Sotrudnik sotrudnik)
         {
@@ -30,7 +31,9 @@ namespace Poseshchaemost
             this.sotrudnik = sotrudnik;
 
             DataContext = this.sotrudnik;
-            var kuratorList = DB.GetBD().Sotrudniks.Where(x => x.id_sotrudnik == x.kurator).ToList();
+            kuratorList = DB.GetBD().Sotrudniks.ToList();
+            kuratorList.Insert(0, new Sotrudnik { familiya = "Нет" });
+
             CBB.ItemsSource = kuratorList;
 
             if (sotrudnik.id_sotrudnik == 0)
@@ -75,10 +78,27 @@ namespace Poseshchaemost
             {
                 if (sotrudnik.id_sotrudnik == 0)
                 {
-                    sotrudnik.kurator = ((Sotrudnik)CBB.SelectedItem).id_sotrudnik;
+                    var kurat = ((Sotrudnik)CBB.SelectedItem).id_sotrudnik;
 
-                    DB.GetBD().Sotrudniks.Add(sotrudnik);
-                    DB.GetBD().SaveChanges();
+                    if(kurat > 0) {
+                        sotrudnik.kurator = kurat;
+
+                        DB.GetBD().Sotrudniks.Add(sotrudnik);
+                        DB.GetBD().SaveChanges();
+                    }
+                    else
+                    {
+                        sotrudnik.kurator = kuratorList[1].id_sotrudnik;
+
+                        DB.GetBD().Sotrudniks.Add(sotrudnik);
+                        DB.GetBD().SaveChanges();
+
+                        var task = DB.GetBD().Sotrudniks.OrderByDescending(x => x.id_sotrudnik).FirstOrDefault();
+                        task.kurator = task.id_sotrudnik;
+                        DB.GetBD().SaveChanges();
+                    }
+
+                    
                 }
                 else
                 {

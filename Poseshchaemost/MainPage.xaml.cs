@@ -45,8 +45,7 @@ namespace Poseshchaemost
         {
             var sotrudnikList = DB.GetBD().Sotrudniks.OrderBy(x => x.familiya).ToList();
 
-            var kuratorIdList = sotrudnikList.Select(x => x.kurator).Distinct().ToList();
-            var kuratorList = sotrudnikList.Where(x => kuratorIdList.Contains(x.id_sotrudnik)).ToList();
+           var kuratorList = sotrudnikList.Select(x => x.Sotrudnik2).Distinct().ToList();
 
             kuratorList.Insert(0, new Sotrudnik {  familiya = "Все" });
 

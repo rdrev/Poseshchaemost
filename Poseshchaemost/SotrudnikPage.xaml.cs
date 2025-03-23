@@ -102,12 +102,17 @@ namespace Poseshchaemost
                 }
                 else
                 {
-                    sotrudnik.kurator = ((Sotrudnik)CBB.SelectedItem).id_sotrudnik;
-
                     var task = DB.GetBD().Sotrudniks.Find(sotrudnik.id_sotrudnik);
                     task = sotrudnik;
 
-                    DB.GetBD().SaveChanges();
+                    var kurat = ((Sotrudnik)CBB.SelectedItem).id_sotrudnik;
+
+                    if (kurat > 0)
+                        task.kurator = ((Sotrudnik)CBB.SelectedItem).id_sotrudnik;
+                    else
+                        task.kurator = task.id_sotrudnik;
+
+                        DB.GetBD().SaveChanges();
                 }
             }
             catch (Exception ex)
